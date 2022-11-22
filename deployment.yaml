@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: &NAME demo
+  labels: { app: *NAME }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: *NAME } }
+  template:
+    metadata: { labels: { app: *NAME } }
+    spec:
+      containers:
+      - image: docker.io/ubuntu:22.04
+        command: ["/bin/bash", "-c", 'echo ''{"msg": "a log message", "time": "2022-02-02T20:20:20Z"}''']
+        name: *NAME
